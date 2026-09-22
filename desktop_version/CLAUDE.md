@@ -8,23 +8,23 @@
 ```bash
 # 가상환경 만들기 (처음 한 번)
 python -m venv .venv
-.venv\Scripts\python.exe -m pip install torch torchvision pillow --index-url https://download.pytorch.org/whl/cpu
+.venv/Scripts/python.exe -m pip install torch torchvision pillow --index-url https://download.pytorch.org/whl/cpu
 
 # 학습 (MNIST 자동 다운로드 → mnist_cnn.pt 저장)
-.venv\Scripts\python.exe train.py
+.venv/Scripts/python.exe train.py
 
 # 웹 버전용 가중치 내보내기 (학습 후 반드시 실행)
-.venv\Scripts\python.exe export_web.py
+.venv/Scripts/python.exe export_web.py
 
 # 손글씨 인식 GUI 실행 (파일 탐색기에서 app.py 더블클릭도 가능)
-.venv\Scripts\python.exe app.py
+.venv/Scripts/python.exe app.py
 
 # 검사
-.venv\Scripts\python.exe 검사_전처리.py
-.venv\Scripts\python.exe 검사_내보내기.py
+.venv/Scripts/python.exe 검사_전처리.py
+.venv/Scripts/python.exe 검사_내보내기.py
 ```
 
-**윈도우 콘솔에서 한글이 깨지면** 먼저 `set PYTHONIOENCODING=utf-8`을 실행하세요.
+**윈도우 콘솔에서 한글이 깨지면** 먼저 인코딩을 설정하세요: cmd는 `set PYTHONIOENCODING=utf-8`, PowerShell은 `$env:PYTHONIOENCODING="utf-8"`.
 
 ## 파일 구조
 

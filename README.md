@@ -27,8 +27,8 @@ PyTorch로 학습하고 tkinter 창에서 인식합니다. 자세한 내용: [`d
 ```bash
 cd desktop_version
 python -m venv .venv
-.venv\Scripts\python.exe -m pip install torch torchvision pillow --index-url https://download.pytorch.org/whl/cpu
-.venv\Scripts\python.exe app.py
+.venv/Scripts/python.exe -m pip install torch torchvision pillow --index-url https://download.pytorch.org/whl/cpu
+.venv/Scripts/python.exe app.py
 ```
 
 Windows 파일 탐색기에서 `desktop_version/app.py`를 **더블클릭**해도 실행됩니다.

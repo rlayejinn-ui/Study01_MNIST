@@ -3,7 +3,7 @@
 app.py 의 전처리와 인식이 제대로 동작하는지 확인하는 간단한 검사
 
 실행 방법 (desktop_version 폴더 기준):
-    .venv\\Scripts\\python.exe 검사_전처리.py
+    .venv/Scripts/python.exe 검사_전처리.py
 """
 
 import sys

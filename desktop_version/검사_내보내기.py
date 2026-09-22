@@ -3,7 +3,7 @@
 export_web.py 가 만든 웹용 파일이 올바른지 확인하는 검사
 
 실행 방법 (desktop_version 폴더 기준):
-    .venv\\Scripts\\python.exe 검사_내보내기.py
+    .venv/Scripts/python.exe 검사_내보내기.py
 
 확인하는 것:
     1. weights.json 의 형식 버전, 정규화 상수, 층 이름·모양

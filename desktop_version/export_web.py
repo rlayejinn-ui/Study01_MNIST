@@ -3,7 +3,7 @@
 학습된 가중치(mnist_cnn.pt)를 웹 버전이 읽을 수 있는 형식으로 내보내는 스크립트
 
 실행 방법 (desktop_version 폴더 기준):
-    .venv\\Scripts\\python.exe export_web.py
+    .venv/Scripts/python.exe export_web.py
 
 만드는 파일:
     ../web_version/model/weights.bin    모든 가중치 (float32, 리틀 엔디언)
