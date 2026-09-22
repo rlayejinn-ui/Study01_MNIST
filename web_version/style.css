@@ -39,6 +39,7 @@ body {
   padding: 24px 16px 40px;
 }
 
+.작성자 { margin: 0 0 8px; font-weight: 600; color: var(--흐린글자); }
 h1 { font-size: 1.6rem; margin: 0 0 4px; }
 h2 { font-size: 1.05rem; margin: 0; color: var(--흐린글자); font-weight: 600; }
 .설명, .꼬리말 { color: var(--흐린글자); margin: 0 0 16px; }
