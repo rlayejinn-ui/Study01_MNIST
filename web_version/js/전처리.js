@@ -10,6 +10,42 @@ const 크기 = 28;
 const 글씨_상자 = 20;
 
 /**
+ * 큰 배율(약 14배)을 한 번에 축소하면 imageSmoothingQuality 지원 여부에 따라
+ * 브라우저마다 결과가 달라지므로, 목표 크기보다 커지는 동안 절반씩 줄여 나갑니다.
+ * @returns {HTMLCanvasElement}  가로 목표너비 x 세로 목표높이 캔버스
+ */
+function 단계별_축소(원본, sx, sy, sWidth, sHeight, 목표너비, 목표높이) {
+  const 새캔버스 = (너비, 높이) => {
+    const 캔버스 = document.createElement("canvas");
+    캔버스.width = 너비;
+    캔버스.height = 높이;
+    const 붓 = 캔버스.getContext("2d", { willReadFrequently: true });
+    붓.imageSmoothingEnabled = true;
+    붓.imageSmoothingQuality = "high";
+    return { 캔버스, 붓 };
+  };
+
+  // 잘라낸 영역을 그대로(확대·축소 없이) 복사합니다.
+  let { 캔버스: 현재, 붓: 현재붓 } = 새캔버스(sWidth, sHeight);
+  현재붓.drawImage(원본, sx, sy, sWidth, sHeight, 0, 0, sWidth, sHeight);
+  let 너비 = sWidth, 높이 = sHeight;
+
+  while (Math.floor(너비 / 2) >= 목표너비 && Math.floor(높이 / 2) >= 목표높이) {
+    const 다음너비 = Math.floor(너비 / 2);
+    const 다음높이 = Math.floor(높이 / 2);
+    const { 캔버스: 다음, 붓: 다음붓 } = 새캔버스(다음너비, 다음높이);
+    다음붓.drawImage(현재, 0, 0, 너비, 높이, 0, 0, 다음너비, 다음높이);
+    현재 = 다음;
+    너비 = 다음너비;
+    높이 = 다음높이;
+  }
+
+  const { 캔버스: 결과, 붓: 결과붓 } = 새캔버스(목표너비, 목표높이);
+  결과붓.drawImage(현재, 0, 0, 너비, 높이, 0, 0, 목표너비, 목표높이);
+  return 결과;
+}
+
+/**
  * @param {HTMLCanvasElement} 캔버스  검은 바탕에 흰 글씨
  * @param {{평균:number, 표준편차:number}} 정규화
  * @returns {Float32Array|null}  784 개 값, 빈 그림이면 null
@@ -40,7 +76,8 @@ export function 전처리(캔버스, 정규화) {
   const 새너비 = Math.max(1, Math.round(상자너비 * 배율));
   const 새높이 = Math.max(1, Math.round(상자높이 * 배율));
 
-  // 3) 28x28 검은 바탕 가운데에 붙이기
+  // 3) 28x28 검은 바탕 가운데에 붙이기 (절반씩 축소한 결과를 그대로 붙여넣기만 함)
+  const 축소됨 = 단계별_축소(캔버스, 왼, 위, 상자너비, 상자높이, 새너비, 새높이);
   const 작은캔버스 = document.createElement("canvas");
   작은캔버스.width = 크기;
   작은캔버스.height = 크기;
@@ -49,7 +86,7 @@ export function 전처리(캔버스, 정규화) {
   붓.fillRect(0, 0, 크기, 크기);
   붓.imageSmoothingEnabled = true;
   붓.imageSmoothingQuality = "high";
-  붓.drawImage(캔버스, 왼, 위, 상자너비, 상자높이,
+  붓.drawImage(축소됨, 0, 0, 새너비, 새높이,
     Math.floor((크기 - 새너비) / 2), Math.floor((크기 - 새높이) / 2), 새너비, 새높이);
   const 작은픽셀 = 붓.getImageData(0, 0, 크기, 크기).data;
   const 밝기 = new Float32Array(크기 * 크기);
