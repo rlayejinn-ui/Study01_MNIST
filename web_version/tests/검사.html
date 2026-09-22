@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>웹 버전 검사</title>
+  <style>
+    body { font-family: "맑은 고딕", sans-serif; margin: 16px; background: #fff; color: #222; }
+    li { margin: 4px 0; word-break: break-all; }
+    .통과 { color: #1b6e2a; }
+    .실패 { color: #b3261e; }
+    #요약 { font-weight: bold; font-size: 1.2em; }
+  </style>
+</head>
+<body>
+  <h1>웹 버전 검사</h1>
+  <p id="요약">검사 실행 중…</p>
+  <ol id="결과목록"></ol>
+  <script type="module" src="./검사.js"></script>
+</body>
+</html>
