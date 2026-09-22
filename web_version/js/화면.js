@@ -16,6 +16,7 @@ const 상태 = document.getElementById("상태");
 let 모델 = null;
 let 그리는중 = false;
 let 이전점 = null;
+let 현재포인터 = null; // 그리는 중인 포인터 id (다른 손가락의 움직임을 무시하기 위함)
 const 막대들 = [];
 
 /** 0~9 확률 막대 10줄을 만듭니다. */
@@ -89,23 +90,26 @@ function 인식하기() {
     그림판_지우기(); // 오른쪽 클릭으로 지우기
     return;
   }
+  if (이벤트.button !== 0 || 그리는중) return; // 왼쪽 버튼만, 이미 그리는 중이면 다른 포인터는 무시
   이벤트.preventDefault();
   그림판.setPointerCapture(이벤트.pointerId);
   그리는중 = true;
+  현재포인터 = 이벤트.pointerId;
   이전점 = 캔버스_좌표(이벤트);
   선긋기(이전점, 이전점); // 점 하나 찍기
 });
 
 그림판.addEventListener("pointermove", (이벤트) => {
-  if (!그리는중) return;
+  if (!그리는중 || 이벤트.pointerId !== 현재포인터) return;
   const 현재점 = 캔버스_좌표(이벤트);
   선긋기(이전점, 현재점);
   이전점 = 현재점;
 });
 
-function 그리기_끝() {
-  if (!그리는중) return;
+function 그리기_끝(이벤트) {
+  if (!그리는중 || 이벤트.pointerId !== 현재포인터) return;
   그리는중 = false;
+  현재포인터 = null;
   이전점 = null;
   인식하기();
 }
