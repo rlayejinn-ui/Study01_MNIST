@@ -1,8 +1,5 @@
-# 내려받은 MNIST 원본 데이터 (train.py 실행 시 자동 생성, 약 64MB)
-data/
-
-# 학습으로 생성되는 가중치 파일 (train.py 실행 시 재생성 가능)
-mnist_cnn.pt
+# 데스크톱 버전: 내려받은 MNIST 원본 데이터 (train.py 실행 시 자동 생성, 약 64MB)
+desktop_version/data/
 
 # 학습 로그
 train_log.txt
@@ -15,6 +12,7 @@ __pycache__/
 .venv/
 venv/
 
-# 에디터 설정
+# 에디터·도구 설정
 .vscode/
 .idea/
+.claude/

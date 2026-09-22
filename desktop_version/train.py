@@ -8,6 +8,8 @@ MNIST 손글씨 숫자 인식 CNN 모델 학습 스크립트
 학습이 끝나면 가중치가 mnist_cnn.pt 파일로 저장됩니다.
 """
 
+import os
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -22,8 +24,10 @@ from model import MNIST_평균, MNIST_표준편차, 숫자인식CNN
 배치_크기 = 128
 에폭_수 = 5
 학습률 = 1e-3
-가중치_파일 = "mnist_cnn.pt"
-데이터_경로 = "./data"
+# 이 파일이 있는 폴더를 기준으로 경로를 잡아, 어느 폴더에서 실행해도 같은 곳을 씁니다.
+프로젝트_폴더 = os.path.dirname(os.path.abspath(__file__))
+가중치_파일 = os.path.join(프로젝트_폴더, "mnist_cnn.pt")
+데이터_경로 = os.path.join(프로젝트_폴더, "data")
 
 
 def 데이터_로더_만들기():
