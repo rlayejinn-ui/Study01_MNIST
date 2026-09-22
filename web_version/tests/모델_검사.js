@@ -5,6 +5,7 @@ import { 최댓값_위치 } from "../js/연산.js";
 
 const 모델경로 = new URL("../model/", import.meta.url);
 const 모델_약속 = 모델_불러오기(모델경로);
+모델_약속.catch(() => {}); // 실패는 아래에서 각 검사가 await 할 때 그대로 보고됩니다
 
 검사("모델: 정규화 상수를 weights.json 에서 읽음", async () => {
   const 모델 = await 모델_약속;

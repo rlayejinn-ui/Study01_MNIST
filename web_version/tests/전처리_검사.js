@@ -7,6 +7,7 @@ import { 최댓값_위치 } from "../js/연산.js";
 
 const 정규화 = { 평균: 0.1307, 표준편차: 0.3081 };
 const 모델_약속 = 모델_불러오기(new URL("../model/", import.meta.url));
+모델_약속.catch(() => {}); // 실패는 아래에서 각 검사가 await 할 때 그대로 보고됩니다
 
 function 새_캔버스() {
   const 캔버스 = document.createElement("canvas");
