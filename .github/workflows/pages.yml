@@ -14,10 +14,10 @@ permissions:
   pages: write
   id-token: write
 
-# 배포가 겹치면 마지막 것만 남깁니다.
+# 배포가 겹치면 실행 중인 배포는 끝까지 마치고, 새로 들어온 것은 대기합니다.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
